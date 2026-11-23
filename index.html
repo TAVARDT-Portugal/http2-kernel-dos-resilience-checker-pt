@@ -1209,31 +1209,31 @@ python http2_kernel_dos_checker.py</div>
       sysctl: `# sysctl-hardening.conf - TAVARDT Hardening de Kernel Linux contra DoS HTTP/2 e NoisyTCP
 # Aplicar com: sysctl -p /etc/sysctl.d/99-tavardt-http2-hardening.conf
 
-# 1. Protecao contra SYN Flood e exaustao de conexoes TCP
+# 1. Proteção contra SYN Flood e exaustão de conexões TCP
 net.ipv4.tcp_syncookies = 1
 net.ipv4.tcp_max_syn_backlog = 8192
 net.ipv4.tcp_synack_retries = 2
 
-# 2. Descarte acelerado de conexoes orfas e encerramento rapido
+# 2. Descarte acelerado de conexões órfãs e encerramento rápido
 net.ipv4.tcp_fin_timeout = 15
 net.ipv4.tcp_tw_reuse = 1
 net.ipv4.tcp_max_tw_buckets = 1440000
 
-# 3. Quota de memoria e buffers TCP para absorver multiplexacao HTTP/2
+# 3. Quota de memória e buffers TCP para absorver multiplexação HTTP/2
 net.core.somaxconn = 8192
 net.core.netdev_max_backlog = 16384
 net.ipv4.tcp_rmem = 4096 87380 67108864
 net.ipv4.tcp_wmem = 4096 65536 67108864
 
-# 4. Mitigacao de exaustao de tabela de estado (nf_conntrack)
+# 4. Mitigação de exaustão de tabela de estado (nf_conntrack)
 net.netfilter.nf_conntrack_max = 524288
 net.netfilter.nf_conntrack_tcp_timeout_established = 600
 net.netfilter.nf_conntrack_tcp_timeout_close_wait = 10`,
 
-      nginx: `# nginx-http2-hardened.conf - TAVARDT Mitigacao HTTP/2 Rapid Reset (CVE-2023-44487)
+      nginx: `# nginx-http2-hardened.conf - TAVARDT Mitigação HTTP/2 Rapid Reset (CVE-2023-44487)
 # Inclusao no bloco http {} e server {} do NGINX corporativo
 
-# 1. Zonas de Rate Limiting para controle de requisicoes por IP
+# 1. Zonas de Rate Limiting para controle de requisições por IP
 limit_req_zone $binary_remote_addr zone=http2_limit:20m rate=40r/s;
 limit_conn_zone $binary_remote_addr zone=conn_limit:20m;
 
@@ -1254,7 +1254,7 @@ server {
     keepalive_timeout 30s 30s;
     send_timeout 10s;
 
-    # 4. Aplicacao de limites de conexao e requisicoes
+    # 4. Aplicação de limites de conexão e requisições
     limit_conn conn_limit 20;
     limit_req zone=http2_limit burst=20 nodelay;
 
@@ -1265,7 +1265,7 @@ server {
     }
 }`,
 
-      nftables: `# nftables-dos-protection.conf - TAVARDT Filtragem L4 de Pacotes e Mitigacao DoS
+      nftables: `# nftables-dos-protection.conf - TAVARDT Filtragem L4 de Pacotes e Mitigação DoS
 # Aplicar com: nft -f /etc/nftables/tavardt-dos-filter.nft
 
 table inet tavardt_filter {
@@ -1280,7 +1280,7 @@ table inet tavardt_filter {
         # Bloquear IPs na lista de descarte temporario
         ip saddr @denylist drop
 
-        # Mitigacao de inundacao de pacotes TCP RST e SYN anormais
+        # Mitigação de inundação de pacotes TCP RST e SYN anormais
         tcp flags & (rst|ack) == rst limit rate over 50/second add @denylist { ip saddr timeout 10m } drop
         tcp flags syn tcp flags & (fin|syn|rst|ack) == syn limit rate over 100/second burst 150 packets accept
     }
@@ -1288,12 +1288,12 @@ table inet tavardt_filter {
     chain input {
         type filter hook input priority 0; policy drop;
 
-        # Aceitar trafego de loopback e conexoes estabelecidas
+        # Aceitar tráfego de loopback e conexões estabelecidas
         iif "lo" accept
         ct state established,related accept
         ct state invalid drop
 
-        # Protecao de porta HTTPS (443) com limite de novas conexoes por IP
+        # Proteção de porta HTTPS (443) com limite de novas conexões por IP
         tcp dport 443 meter flood { ip saddr ct count over 40 } drop
         tcp dport 443 accept
     }
@@ -1329,13 +1329,13 @@ services:
     cap_add:
       - NET_BIND_SERVICE`,
 
-      cli: `# http2_kernel_dos_checker.py - TAVARDT Utilitario CLI Deterministico de Auditoria Local
+      cli: `# http2_kernel_dos_checker.py - TAVARDT Utilitário CLI Determinístico de Auditoria Local
 import os
 import sys
 
 def check_sysctl_param(param_path, expected_min):
     if not os.path.exists(param_path):
-        return None, "Parametro nao encontrado no sistema atual"
+        return None, "Parâmetro não encontrado no sistema atual"
     try:
         with open(param_path, "r") as f:
             val = int(f.read().strip())
@@ -1350,10 +1350,10 @@ def run_audit():
     print("=" * 60)
     
     checks = [
-        ("/proc/sys/net/ipv4/tcp_syncookies", 1, "Protecao SYN Flood"),
-        ("/proc/sys/net/ipv4/tcp_max_syn_backlog", 4096, "Fila de Conexoes SYN"),
+        ("/proc/sys/net/ipv4/tcp_syncookies", 1, "Proteção SYN Flood"),
+        ("/proc/sys/net/ipv4/tcp_max_syn_backlog", 4096, "Fila de Conexões SYN"),
         ("/proc/sys/net/ipv4/tcp_tw_reuse", 1, "Reaproveitamento TIME_WAIT"),
-        ("/proc/sys/net/core/somaxconn", 4096, "Limite de Conexoes em Socket")
+        ("/proc/sys/net/core/somaxconn", 4096, "Limite de Conexões em Socket")
     ]
     
     score = 0
