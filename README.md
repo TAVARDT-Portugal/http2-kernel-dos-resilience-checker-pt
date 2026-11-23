@@ -1,39 +1,68 @@
-# Hub de Hardening e Resiliencia DoS HTTP/2 e Kernel Linux
+# Hub de Hardening e Resiliência DoS HTTP/2 e Kernel Linux
 
-Especificacao tecnica corporativa de engenharia defensiva e blueprints de infraestrutura para mitigar vetores de saturacao HTTP/2 Rapid Reset (CVE-2023-44487) e NoisyTCP, hardening de kernel Linux (sysctl) e verificacao CLI deterministica local.
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-5b3cf5.svg)](https://tavardt-portugal.github.io/http2-kernel-dos-resilience-checker-pt/)
+[![Jurisdição](https://img.shields.io/badge/Jurisdi%C3%A7%C3%A3o-Portugal-00C853.svg)](https://ag.tavardt.com/pt/)
+[![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/)
+[![RFC 7540](https://img.shields.io/badge/RFC-7540-blue.svg)](https://datatracker.ietf.org/doc/html/rfc7540)
+[![RFC 9113](https://img.shields.io/badge/RFC-9113-blue.svg)](https://datatracker.ietf.org/doc/html/rfc9113)
 
-## Escopo Tecnico do Repositorio
+**Hub de Arquitetura Defensiva e Mitigação contra DoS em HTTP/2 (Rapid Reset CVE-2023-44487) e Kernel Linux**
 
-Este repositorio fornece blueprints de hardening testados em producao e utilitario CLI deterministico:
+Desenvolvido e mantido pela divisão de engenharia de segurança em infraestrutura da **[TAVARDT Portugal](https://ag.tavardt.com/pt/)**.
 
-1. **sysctl-hardening.conf:** Parametros otimizados em `/proc/sys/net/ipv4` mitigando inundacoes SYN, ataques de timestamp NoisyTCP e esgotamento de sockets orfaos.
-2. **nginx-http2-hardened.conf:** Configuracao de proxy reverso NGINX blindada impondo cotas estritas de concorrencia (`http2_max_concurrent_streams 64`) e limitacao de taxa em quadros RST_STREAM.
-3. **nftables-dos-protection.conf:** Regras de filtragem de pacotes na Camada 4 descartando rajadas anomalas TCP SYN e RST antes da alocacao de sockets no kernel.
-4. **docker-compose-hardened.yml:** Arquitetura de conteineres isolados aplicando limites rigidos de recursos (memoria, CPU, ulimits) em proxies de borda.
-5. **http2_kernel_dos_checker.py:** Utilitario CLI local deterministico executado com privilegios de sistema no host para auditar diretamente parametros `/proc/sys` e verificar conformidade RFC.
+***
+
+## Portais Oficiais
+
+* **Portal Institucional**: [https://ag.tavardt.com/pt/](https://ag.tavardt.com/pt/)
+* **Central de Ferramentas**: [https://tools.tavardt.com/pt/](https://tools.tavardt.com/pt/)
+* **Canal de Atendimento e Suporte Técnico**: [https://ag.tavardt.com/pt/contacto/](https://ag.tavardt.com/pt/contacto/)
+
+***
+
+## Demonstração Online e Hub de Arquitetura Defensiva
+
+Você pode acessar a especificação técnica corporativa, os testes de diagnóstico arquitetural e os blueprints de mitigação diretamente pelo navegador:
+
+* **[Aplicação Web Oficial no GitHub Pages](https://tavardt-portugal.github.io/http2-kernel-dos-resilience-checker-pt/)**
+* **[Central de Ferramentas TAVARDT](https://tools.tavardt.com/pt/)**
 
 > [!NOTE]
-> A inspecao ativa do estado do kernel Linux e dos parametros de rede exige privilegios de sistema e deve ser executada diretamente no servidor via utilitario CLI em Python. Paginas web em sandbox de navegador nao possuem permissao para auditar parametros do kernel hospedeiro.
+> **Escopo de Execução Técnica:** Este hub web fornece especificações de arquitetura defensiva e blueprints de configuração. Auditorias ativas de queda de kernel e resiliência TCP exigem privilégios de sistema (root) e execução diretamente no próprio servidor hospedeiro via o utilitário CLI oficial disponibilizado neste repositório (`http2_kernel_dos_checker.py`). Páginas web em sandbox de navegador não possuem permissão para auditar parâmetros internos do kernel.
 
-## Uso do Utilitario CLI
+***
 
-Execute o script de auditoria deterministica diretamente no host do servidor:
+## Blueprints Técnicos de Hardening
+
+1. **sysctl-hardening.conf:** Parâmetros otimizados em `/proc/sys/net/ipv4` mitigando inundações SYN, ataques de timestamp NoisyTCP e esgotamento de conexões órfãs.
+2. **nginx-http2-hardened.conf:** Configuração de proxy reverso NGINX blindada impondo cotas estritas de concorrência (`http2_max_concurrent_streams 64`) e limitação de taxa em quadros RST_STREAM.
+3. **nftables-dos-protection.conf:** Regras de filtragem de pacotes na Camada 4 descartando rajadas anômalas TCP SYN e RST antes da alocação de sockets no kernel.
+4. **docker-compose-hardened.yml:** Arquitetura de contêineres isolados aplicando limites rígidos de recursos (memória, CPU, ulimits) em proxies de borda.
+5. **http2_kernel_dos_checker.py:** Utilitário CLI local determinístico executado com privilégios de sistema no host para auditar diretamente parâmetros `/proc/sys` e verificar conformidade RFC.
+
+***
+
+## Uso do Utilitário CLI Determinístico
+
+Para executar a inspeção determinística diretamente no host do servidor Linux:
 
 ```bash
-# 1. Baixar o script de auditoria
+# 1. Baixar o script de auditoria do repositório oficial
 curl -sO https://raw.githubusercontent.com/TAVARDT-Portugal/http2-kernel-dos-resilience-checker-pt/main/http2_kernel_dos_checker.py
 
-# 2. Inspecionar parametros locais do kernel Linux
+# 2. Inspecionar parâmetros locais do kernel Linux
 sudo python3 http2_kernel_dos_checker.py -kernel
 
-# 3. Exportar resultados em formato JSON
+# 3. Exportar diagnóstico em formato estruturado JSON
 sudo python3 http2_kernel_dos_checker.py -kernel -json
 ```
 
-## Governanca e Soberania
+***
 
-* **Organizacao:** TAVARDT-Portugal
-* **Jurisdicao:** Portugal
-* **Padroes de Referencia:** RFC 7540, RFC 9113, CVE-2023-44487, Diretrizes Zero Trust
+## Governança e Conformidade
 
-Desenvolvido pela Divisao de Ciberseguranca e Infraestrutura da **TAVARDT Portugal**. Todos os direitos reservados.
+* **Organização:** TAVARDT-Portugal
+* **Jurisdição:** Portugal
+* **Padrões de Referencia:** CIS Linux Benchmarks, RFC 7540, RFC 9113, CVE-2023-44487 e Arquitetura Zero Trust.
+
+Desenvolvido pela Divisão de Cibersegurança e Infraestrutura da **[TAVARDT Portugal](https://ag.tavardt.com/pt/)**. Todos os direitos reservados.
