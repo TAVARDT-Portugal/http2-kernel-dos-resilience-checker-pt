@@ -143,10 +143,10 @@ def main():
     parser = argparse.ArgumentParser(
         description="TAVARDT Auditor de Resiliencia HTTP/2 & NoisyTCP Linux Kernel"
     )
-    parser.add_argument("--host", help="Host remoto para auditoria de negociacao HTTP/2 e banners", default=None)
-    parser.add_argument("--port", help="Porta remota (padrao: 443)", type=int, default=443)
-    parser.add_argument("--kernel", action="store_true", help="Executar auditoria local dos parametros de rede do Linux")
-    parser.add_argument("--json", action="store_true", help="Retornar saida exclusivamente em formato JSON")
+    parser.add_argument("-host", help="Host remoto para auditoria de negociacao HTTP/2 e banners", default=None)
+    parser.add_argument("-port", help="Porta remota (padrao: 443)", type=int, default=443)
+    parser.add_argument("-kernel", action="store_true", help="Executar auditoria local dos parametros de rede do Linux")
+    parser.add_argument("-json", action="store_true", help="Retornar saida exclusivamente em formato JSON")
 
     args = parser.parse_args()
 
@@ -171,7 +171,7 @@ def main():
     print("      TAVARDT - AUDITOR DE RESILIENCIA HTTP/2 & QUEDA DE KERNEL LINUX           ")
     print("================================================================================")
     print(f"Versao: {VERSION} | Jurisdicao: Brasil | Portal: https://ag.tavardt.com/br/")
-    print("--------------------------------------------------------------------------------\n")
+    print("================================================================================\n")
 
     if "kernel_audit" in results:
         ka = results["kernel_audit"]
