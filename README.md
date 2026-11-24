@@ -58,10 +58,4 @@ sudo python3 http2_kernel_dos_checker.py -kernel -json
 
 ***
 
-## Governança e Conformidade
-
-* **Organização:** TAVARDT-Portugal
-* **Jurisdição:** Portugal
-* **Padrões de Referencia:** CIS Linux Benchmarks, RFC 7540, RFC 9113, CVE-2023-44487 e Arquitetura Zero Trust.
-
-Desenvolvido pela Divisão de Cibersegurança e Infraestrutura da **TAVARDT Portugal**. Todos os direitos reservados.
+© 2026 TAVARDT. Todos os direitos reservados.
