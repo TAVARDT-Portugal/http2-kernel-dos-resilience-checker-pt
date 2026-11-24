@@ -1,21 +1,20 @@
 # Hub de Hardening e Resiliência DoS HTTP/2 e Kernel Linux
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-5b3cf5.svg)](https://tavardt-portugal.github.io/http2-kernel-dos-resilience-checker-pt/)
-[![Jurisdição](https://img.shields.io/badge/Jurisdi%C3%A7%C3%A3o-Portugal-00C853.svg)](https://ag.tavardt.com/pt/)
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/)
 [![RFC 7540](https://img.shields.io/badge/RFC-7540-blue.svg)](https://datatracker.ietf.org/doc/html/rfc7540)
 [![RFC 9113](https://img.shields.io/badge/RFC-9113-blue.svg)](https://datatracker.ietf.org/doc/html/rfc9113)
 
 **Hub de Arquitetura Defensiva e Mitigação contra DoS em HTTP/2 (Rapid Reset CVE-2023-44487) e Kernel Linux**
 
-Desenvolvido e mantido pela divisão de engenharia de segurança em infraestrutura da **[TAVARDT Portugal](https://ag.tavardt.com/pt/)**.
+Desenvolvido e mantido pela divisão de engenharia de segurança em infraestrutura da **TAVARDT Portugal**.
 
 ***
 
 ## Portais Oficiais
 
-* **Portal Institucional**: [https://ag.tavardt.com/pt/](https://ag.tavardt.com/pt/)
-* **Central de Ferramentas**: [https://tools.tavardt.com/pt/](https://tools.tavardt.com/pt/)
+* **Portal Institucional**: [Portal Institucional](https://ag.tavardt.com/pt/)
+* **Central de Ferramentas**: [Central de Ferramentas](https://tools.tavardt.com/pt/)
 * **Canal de Atendimento e Suporte Técnico**: [https://ag.tavardt.com/pt/contacto/](https://ag.tavardt.com/pt/contacto/)
 
 ***
@@ -25,7 +24,7 @@ Desenvolvido e mantido pela divisão de engenharia de segurança em infraestrutu
 Você pode acessar a especificação técnica corporativa, os testes de diagnóstico arquitetural e os blueprints de mitigação diretamente pelo navegador:
 
 * **[Aplicação Web Oficial no GitHub Pages](https://tavardt-portugal.github.io/http2-kernel-dos-resilience-checker-pt/)**
-* **[Central de Ferramentas TAVARDT](https://tools.tavardt.com/pt/)**
+* **Central de Ferramentas TAVARDT**
 
 > [!NOTE]
 > **Escopo de Execução Técnica:** Este hub web fornece especificações de arquitetura defensiva e blueprints de configuração. Auditorias ativas de queda de kernel e resiliência TCP exigem privilégios de sistema (root) e execução diretamente no próprio servidor hospedeiro via o utilitário CLI oficial disponibilizado neste repositório (`http2_kernel_dos_checker.py`). Páginas web em sandbox de navegador não possuem permissão para auditar parâmetros internos do kernel.
@@ -65,4 +64,4 @@ sudo python3 http2_kernel_dos_checker.py -kernel -json
 * **Jurisdição:** Portugal
 * **Padrões de Referencia:** CIS Linux Benchmarks, RFC 7540, RFC 9113, CVE-2023-44487 e Arquitetura Zero Trust.
 
-Desenvolvido pela Divisão de Cibersegurança e Infraestrutura da **[TAVARDT Portugal](https://ag.tavardt.com/pt/)**. Todos os direitos reservados.
+Desenvolvido pela Divisão de Cibersegurança e Infraestrutura da **TAVARDT Portugal**. Todos os direitos reservados.
