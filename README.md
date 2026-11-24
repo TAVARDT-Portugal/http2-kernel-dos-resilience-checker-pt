@@ -4,53 +4,55 @@
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/)
 [![RFC 7540](https://img.shields.io/badge/RFC-7540-blue.svg)](https://datatracker.ietf.org/doc/html/rfc7540)
 [![RFC 9113](https://img.shields.io/badge/RFC-9113-blue.svg)](https://datatracker.ietf.org/doc/html/rfc9113)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-**Hub de Arquitetura Defensiva e Mitigação contra DoS em HTTP/2 (Rapid Reset CVE-2023-44487) e Kernel Linux**
+**Mitigação Arquitetural contra Ataques Rapid Reset (CVE-2023-44487), Slowloris e Esgotamento de Recursos TCP/IP**
 
-Desenvolvido e mantido pela divisão de engenharia de segurança em infraestrutura da **TAVARDT**.
-
-***
-
+Desenvolvido e mantido pela divisão de engenharia de resiliência e infraestrutura de rede da TAVARDT Portugal.
 
 ***
 
-## Demonstração Online e Hub de Arquitetura Defensiva
+## Portais e Demonstração Online
 
-Você pode acessar a especificação técnica corporativa, os testes de diagnóstico arquitetural e os blueprints de mitigação diretamente pelo navegador:
+Aceda à ferramenta interativa oficial e aos canais soberanos da TAVARDT:
 
-* **[Aplicação Web Oficial no GitHub Pages](https://tavardt-portugal.github.io/http2-kernel-dos-resilience-checker-pt/)**
-* **Central de Ferramentas TAVARDT**
-
-> [!NOTE]
-> **Escopo de Execução Técnica:** Este hub web fornece especificações de arquitetura defensiva e blueprints de configuração. Auditorias ativas de queda de kernel e resiliência TCP exigem privilégios de sistema (root) e execução diretamente no próprio servidor hospedeiro via o utilitário CLI oficial disponibilizado neste repositório (`http2_kernel_dos_checker.py`). Páginas web em sandbox de navegador não possuem permissão para auditar parâmetros internos do kernel.
+* **Aplicação Web Oficial no GitHub Pages**: [https://tavardt-portugal.github.io/http2-kernel-dos-resilience-checker-pt/](https://tavardt-portugal.github.io/http2-kernel-dos-resilience-checker-pt/)
+* **Portal Institucional**: [https://ag.tavardt.com/pt/](https://ag.tavardt.com/pt/)
+* **Central de Ferramentas**: [https://tools.tavardt.com/pt/](https://tools.tavardt.com/pt/)
 
 ***
 
-## Blueprints Técnicos de Hardening
+## Blueprints Técnicos e Recursos Disponíveis
 
-1. **sysctl-hardening.conf:** Parâmetros otimizados em `/proc/sys/net/ipv4` mitigando inundações SYN, ataques de timestamp NoisyTCP e esgotamento de conexões órfãs.
-2. **nginx-http2-hardened.conf:** Configuração de proxy reverso NGINX blindada impondo cotas estritas de concorrência (`http2_max_concurrent_streams 64`) e limitação de taxa em quadros RST_STREAM.
-3. **nftables-dos-protection.conf:** Regras de filtragem de pacotes na Camada 4 descartando rajadas anômalas TCP SYN e RST antes da alocação de sockets no kernel.
-4. **docker-compose-hardened.yml:** Arquitetura de contêineres isolados aplicando limites rígidos de recursos (memória, CPU, ulimits) em proxies de borda.
-5. **http2_kernel_dos_checker.py:** Utilitário CLI local determinístico executado com privilégios de sistema no host para auditar diretamente parâmetros `/proc/sys` e verificar conformidade RFC.
+1. **Aplicação Web Interativa**: Diagnóstico determinístico, cálculo de postura defensiva e recomendações imediatas no navegador.
+2. **Utilitário CLI Local**: Script Python determinístico executado diretamente no ambiente de produção para auditoria offline.
+3. **Especificações de Segurança**: Manifestos e configurações de hardening em conformidade com as normas internacionais.
 
 ***
 
 ## Uso do Utilitário CLI Determinístico
 
-Para executar a inspeção determinística diretamente no host do servidor Linux:
+Para executar a inspeção técnica no ambiente local:
 
 ```bash
-# 1. Baixar o script de auditoria do repositório oficial
-curl -sO https://raw.githubusercontent.com/TAVARDT-Portugal/http2-kernel-dos-resilience-checker-pt/main/http2_kernel_dos_checker.py
-
-# 2. Inspecionar parâmetros locais do kernel Linux
-sudo python3 http2_kernel_dos_checker.py -kernel
-
-# 3. Exportar diagnóstico em formato estruturado JSON
-sudo python3 http2_kernel_dos_checker.py -kernel -json
+git clone https://github.com/TAVARDT-Portugal/http2-kernel-dos-resilience-checker-pt.git
+cd http2-kernel-dos-resilience-checker-pt
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python3 scanner.py -json
 ```
 
 ***
 
-© 2026 TAVARDT. Todos os direitos reservados.
+## Governança e Conformidade
+
+* **Organização**: TAVARDT-Portugal
+* **Jurisdição**: Portugal
+* **Padrões de Referência**: Normas e frameworks técnicos auditados em estrita observância das regras de soberania.
+
+Desenvolvido pela Divisão de Cibersegurança e Infraestrutura da TAVARDT Portugal. Todos os direitos reservados.
+
+***
+
+© 2026 TAVARDT Portugal. Todos os direitos reservados. Soberania e Defesa de Infraestrutura.
