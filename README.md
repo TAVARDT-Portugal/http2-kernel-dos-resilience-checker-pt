@@ -8,17 +8,13 @@
 
 **Mitigação Arquitetural contra Ataques Rapid Reset (CVE-2023-44487), Slowloris e Esgotamento de Recursos TCP/IP**
 
-Desenvolvido e mantido pela divisão de engenharia de resiliência e infraestrutura de rede da TAVARDT Portugal.
-
 ***
 
-## Portais e Demonstração Online
+## Demonstração Online
 
 Aceda à ferramenta interativa oficial e aos canais soberanos da TAVARDT:
 
 * **Aplicação Web Oficial no GitHub Pages**: [https://tavardt-portugal.github.io/http2-kernel-dos-resilience-checker-pt/](https://tavardt-portugal.github.io/http2-kernel-dos-resilience-checker-pt/)
-* **Portal Institucional**: [https://ag.tavardt.com/pt/](https://ag.tavardt.com/pt/)
-* **Central de Ferramentas**: [https://tools.tavardt.com/pt/](https://tools.tavardt.com/pt/)
 
 ***
 
@@ -53,4 +49,4 @@ python3 scanner.py -json
 
 ***
 
-© 2026 TAVARDT Portugal. Todos os direitos reservados. Soberania e Defesa de Infraestrutura.
+© 2026 TAVARDT. Todos os direitos reservados.
